@@ -4,8 +4,15 @@
 	border:1px solid #AEAEAE !important;
 	padding: 10px;
 }
+#voa_table_assistence  thead tr th{
+	background-color: #C3D9FF;
+}
+#voa_table_assistence  tbody tr:nth-child(2n){
+	background-color: #FFF8DC;
+}
 #voa_table_assistence caption{
 	padding: 10px;
 	background-color: #E7E7E7;
 	color: black;
 }
+

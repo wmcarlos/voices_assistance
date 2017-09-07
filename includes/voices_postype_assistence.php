@@ -39,22 +39,59 @@
 	}
 	add_action('save_post','voa_assistence_savemetabox');
 	function voa_assistence_savemetabox($post){
+		$date_event =  date_i18n('d-m-Y', strtotime($_REQUEST['voa_date_assistance']));
+		$type_event = $_REQUEST['voa_event_type'];
 		$data = array(
 			'ID' => $_REQUEST['voa_ids'],
 			'assist'=> $_REQUEST['assist'],
 			'justify'=> $_REQUEST['justify']
 		);
 		update_post_meta($post,'voa_assistence',$data);
+		update_post_meta($post,'voa_event_date_assistance',$date_event);
+		update_post_meta($post,'voa_event_type_assistance',$type_event);
 	}
+
+function voa_checked_assistence($post){
+	$voa_meta = get_post_meta($post->ID,'voa_assistence');
+	if(!isset($_GET['action'])){
+		$voa_meta[0]['assist'][0] = '';
+		$voa_meta[0]['justify'][0] = '';
+	}
+	return $voa_meta;
+}
 
 //template
 function voa_mtbx_assistencex_callback($post){
 	$voa_users = get_users();
-	$voa_meta = get_post_meta($post->ID,'voa_assistence');
-	//print_r($voa_meta);
-?>
-<!--FECHA -->
+	$voa_meta = voa_checked_assistence($post);
+	$voa_event_date = get_post_meta($post->ID,'voa_event_date_assistance');
+	$voa_event_date = date_i18n('d-m-Y', strtotime($voa_event_date[0]));
+	$voa_event_type = get_post_meta($post->ID,'voa_event_type_assistance');
 
+?>
+
+<!--FECHA -->
+<table width="50%" align="center"> 
+	<tr>
+		<td>
+			<p>
+				<span>Fecha:</span>
+				<br>
+				<input value="<?php echo $voa_event_date;  ?>" type="text" id="voa_date_assistance" name="voa_date_assistance">
+			</p>
+		</td>
+		<td>
+			<p>
+				<span>Tipo de Evento:</span>
+				<br>
+				<select id="voa_event_type" name="voa_event_type">
+					<option <?php selected($voa_event_type[0],'ENSAYO');  ?>  value="ENSAYO">Ensayo</option>
+					<option <?php selected($voa_event_type[0],'ASAMBLEA');  ?> value="ASAMBLEA">Asamblea</option>
+				</select>
+			</p>
+		</td>
+	</tr>
+</table>
 
 
 <table width="100%" cellspacing="1" cellpadding="1"  id="voa_table_assistence">
@@ -67,7 +104,8 @@ function voa_mtbx_assistencex_callback($post){
 <?php 
 $i=0;
 foreach ($voa_users as $key) { 
-	if($key->roles[0]=='subscriber'){
+	if($key->roles[0]=='subscriber'){	
+		$cont_data = 0;
 ?>
 <tr>
 	<input type="hidden" name="voa_ids[]" value="<?php echo $key->data->ID; ?>">
@@ -81,7 +119,15 @@ foreach ($voa_users as $key) {
 	</select>
 	</td>
 	<td width="5%" align="right" style="vertical-align: middle;border-right:1px solid #b9c9fe;border-left:1px solid #b9c9fe;">
-		<input type="checkbox" <?php checked($voa_meta[0]['justify'][$i],'yes'); ?> name="justify[]" value="yes"  id="justify[]" style="margin:0px">
+		<?php foreach($voa_meta[0]['justify'] as $key_justify){
+			if($key_justify==$key->data->ID){
+		?>
+		<input type="checkbox" checked="checked" id="justify"  name="justify[]" value="<?php echo $key->data->ID;  ?>"  id="justify[]" style="margin:0px">
+		<?php $cont_data = 1; }}
+			if($cont_data==0){
+		?>
+		<input type="checkbox"  id="justify"  name="justify[]" value="<?php echo $key->data->ID;  ?>"  id="justify[]" style="margin:0px">
+		<?php } ?>
 	</td>
 </tr>
 <?php 
@@ -92,6 +138,5 @@ foreach ($voa_users as $key) {
 </tbody>
 </table>
 
-	
 <?php		
 }

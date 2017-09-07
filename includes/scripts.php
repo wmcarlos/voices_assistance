@@ -25,12 +25,12 @@ if ( !defined('ABSPATH') ) {
 function voice_assistances_admin_scripts($hooks) {
           //styles
     global $post_type;
-    if( ($hooks == 'post.php' && $post_type == 'voa_cpt_assistence')) {
+    if( (($hooks == 'post.php' OR $hooks=='post-new.php') && $post_type == 'voa_cpt_assistence')) {
 
         wp_enqueue_style( 'voice_assistances_admin_css', VOICES_ASSISTANCE_URL . '/assets/css/admin.css' );
-        //wp_enqueue_style( 'voice_assistances_jqueryUI', VOICE_ASSISTANCEs_URL . '/assets/css/jquery-ui' . $suffix . '.css' );
         //scripts
-       // wp_enqueue_script( 'voice_assistances_moment_js', VOICE_ASSISTANCEs_URL . '/assets/js/moment' . $suffix . '.js', array( 'jquery' ) );
+        wp_enqueue_script( 'voice_assistances_admin_js', VOICES_ASSISTANCE_URL . '/assets/js/admin.js', array( 'jquery' ) );
+      
         //JQUERY UI
         wp_enqueue_script( 'jquery-ui-datepicker' ,array( 'jquery' ));
         // You need styling for the datepicker. For simplicity I've linked to Google's hosted jQuery UI CSS.
