@@ -53,6 +53,9 @@ function voa_mtbx_assistencex_callback($post){
 	$voa_meta = get_post_meta($post->ID,'voa_assistence');
 	//print_r($voa_meta);
 ?>
+<!--FECHA -->
+
+
 
 <table width="100%" cellspacing="1" cellpadding="1"  id="voa_table_assistence">
 <caption>Registro de Asistencia de 35 Coristas</caption>

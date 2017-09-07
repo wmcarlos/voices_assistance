@@ -1,7 +1,7 @@
 <?php
 
-	add_action('init', 'voa_postype_fn');
-	function voa_postype_fn(){
+	add_action('init', 'voa_postype_payment_fn');
+	function voa_postype_payment_fn(){
 		$labels = array(
 			'name' => 'Pagos',
 			'singular_name' => 'Pagos',
