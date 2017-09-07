@@ -1,0 +1,11 @@
+/*Estilos para la pagina de asistencia en panel admin*/
+#voa_table_assistence  thead tr th,#voa_table_assistence  tbody tr td{
+	text-align: center;
+	border:1px solid #AEAEAE !important;
+	padding: 10px;
+}
+#voa_table_assistence caption{
+	padding: 10px;
+	background-color: #E7E7E7;
+	color: black;
+}
