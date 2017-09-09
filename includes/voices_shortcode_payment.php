@@ -31,11 +31,20 @@
 			$price = $arrd['count'];
 
 			if($date_payment >= $date_from && $date_payment <= $date_to){
-				
 				$cad.="<tr>";
 					$cad.="<td>".$corist."</td>";
 					$cad.="<td>".$arrd['date_payment']."</td>";
-					$cad.="<td>".$payment_type."</td>";
+
+					$args = array(
+					   'post_type' => 'voa_cpt_payment_type',
+					   'p'      => $payment_type
+					);
+					// The Query
+					$the_query = new WP_Query( $args );
+					$the_query->have_posts();
+					$the_query->the_post();
+
+					$cad.="<td>".get_the_title()."</td>";
 					$cad.="<td>".$price."</td>";
 				$cad.="</tr>";
 				$total+=$price;
