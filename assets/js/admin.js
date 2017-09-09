@@ -3,4 +3,7 @@
         dateFormat: 'dd-mm-yy'
      });
 
+     $("#voa_date_payment").datepicker({
+        dateFormat: 'dd-mm-yy'
+     });
  });

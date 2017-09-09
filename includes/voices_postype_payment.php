@@ -39,11 +39,14 @@
 	}
 	add_action('save_post','voa_payment_savemetabox');
 	function voa_payment_savemetabox($post){
+
 		$data = array(
-			'ID' => $_REQUEST['voa_ids'],
-			'assist'=> $_REQUEST['assist'],
-			'justify'=> $_REQUEST['justify']
+			'date_payment'=> date_i18n('d-m-Y', strtotime($_REQUEST['date_payment'])),
+			'corist'=> $_REQUEST['corist'],
+			'payment_type'=> $_REQUEST['payment_type'],
+			'count'=> $_REQUEST['count']
 		);
+
 		update_post_meta($post,'voa_payment',$data);
 	}
 
@@ -51,44 +54,99 @@
 function voa_mtbx_paymentx_callback($post){
 	$voa_users = get_users();
 	$voa_meta = get_post_meta($post->ID,'voa_payment');
-	//print_r($voa_meta);
 ?>
 
 <table width="100%" cellspacing="1" cellpadding="1"  id="voa_table_payment">
-<caption>Registro de Pago de 35 Coristas</caption>
-<thead>
-<tr>
-<th align="right" style="vertical-align: middle;border-right:1px solid #b9c9fe;border-left:1px solid #b9c9fe;">RUT</th><th align="right" style="vertical-align: middle;border-right:1px solid #b9c9fe;border-left:1px solid #b9c9fe;">NOMBRE</th><th align="right" style="vertical-align: middle;border-right:1px solid #b9c9fe;border-left:1px solid #b9c9fe;">CUERDA</th><th align="right" style="vertical-align: middle;border-right:1px solid #b9c9fe;border-left:1px solid #b9c9fe;">ASISTE</th><th align="center" style="vertical-align: middle;border-right:1px solid #b9c9fe;border-left:1px solid #b9c9fe;">JUSTIFICA</th></tr>
-</thead>
 <tbody>
-<?php 
-$i=0;
-foreach ($voa_users as $key) { 
-	if($key->roles[0]=='subscriber'){
-?>
 <tr>
-	<input type="hidden" name="voa_ids[]" value="<?php echo $key->data->ID; ?>">
-	<td align="center" width="10%">17188576-0</td>
-	<td align="left" width="30%"><?php echo $key->data->display_name; ?></td>
-	<td align="center" width="5%">Soprano</td>
-	<td width="5%">
-	<select id="assist" name="assist[]">
-		<option <?php selected($voa_meta[0]['assist'][$i],'S'); ?> value="S">Si</option>
-		<option <?php selected($voa_meta[0]['assist'][$i],'N'); ?>  value="N">No</option>
-	</select>
-	</td>
-	<td width="5%" align="right" style="vertical-align: middle;border-right:1px solid #b9c9fe;border-left:1px solid #b9c9fe;">
-		<input type="checkbox" <?php checked($voa_meta[0]['justify'][$i],'yes'); ?> name="justify[]" value="yes"  id="justify[]" style="margin:0px">
-	</td>
+	<td>Fecha:</td>
+	<td><input type="text" value="<?php print $voa_meta[0]['date_payment']; ?>" id="voa_date_payment" name="date_payment"></td>
 </tr>
-<?php 
-	$i++;
-	} 
-}
-?>
+<tr>
+	<td>Corista:</td>
+	<td><input type="text" value="<?php print $voa_meta[0]['corist']; ?>" id="users" name="corist"></td>
+</tr>
+<tr>
+	<td>Tipo de Pago:</td>
+	<td><select name="payment_type" id="payment_type">
+			<option value="">Seleccione</option>
+			<?php 
+				$args = [
+					'post_type' => 'voa_cpt_payment_type',
+					'orderby' => 'asc',
+				];
+
+				$loop = new WP_Query($args);
+
+				while($loop->have_posts()){
+					$loop->the_post();
+					$data = get_post_meta(get_the_id(), 'voa_payment_type');
+					$arrData = $data[0];
+					?>
+					<option data-price='<?php print $arrData['price']; ?>' data-fixed='<?php print $arrData['fixed']; ?>' value='<?php print get_the_id(); ?>'><?php the_title(); ?></option>
+					<?php
+				}
+			?>
+	</select></td>
+</tr>
+<tr>
+	<td>Cantidad</td>
+	<td><input type="text" value="<?php print $voa_meta[0]['count']; ?>" name="count" id="count"></td>
+</tr>
 </tbody>
 </table>
+<script>
+	jQuery(document).ready(function(){
 
-	
+		<?php 
+			if(isset($voa_meta[0]['payment_type']) and !empty($voa_meta[0]['payment_type'])){
+		?>
+			jQuery("#payment_type").val("<?php print $voa_meta[0]['payment_type']; ?>");
+		<?php
+
+			}
+		?>
+
+
+		var availableTags = [
+			<?php 
+				foreach ($voa_users as $key) { 
+					if($key->roles[0]=='subscriber'){	
+						$ctem++;
+					}
+				}
+
+				$count = 0;
+
+				foreach ($voa_users as $key) { 
+					if($key->roles[0]=='subscriber'){	
+						$count++;
+						if($count < $ctem){
+							print "'".$key->data->display_name."',";
+						}else{
+							print "'".$key->data->display_name."'";
+						}
+
+					}
+				}
+			?>
+	    ];
+
+	    jQuery( "#users" ).autocomplete({
+	      source: availableTags
+	    });
+
+	    jQuery("#payment_type").change(function(){
+	    	var price = jQuery(this).find(':selected').attr("data-price");
+	    	var fixed = jQuery(this).find(':selected').attr("data-fixed");
+	    	
+	    	if(fixed == 'Y'){
+	    		jQuery("#count").attr("readonly","readonly").val(price);
+	    	}else{
+	    		jQuery("#count").removeAttr("readonly").val(price);
+	    	}
+	    });
+	});
+</script>
 <?php		
 }

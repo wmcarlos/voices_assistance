@@ -45,6 +45,7 @@ class VOICES_ASSISTANCE {
 		//API REST CPANEL
 		require_once VOICES_ASSISTANCE_PLUGIN_DIR.'includes/voices_postype_assistence.php';
 		require_once VOICES_ASSISTANCE_PLUGIN_DIR.'includes/voices_postype_payment.php';
+		require_once VOICES_ASSISTANCE_PLUGIN_DIR.'includes/voices_postype_payment_type.php';
 		require_once VOICES_ASSISTANCE_PLUGIN_DIR.'includes/scripts.php';
 		//Shortcode
 		require_once VOICES_ASSISTANCE_PLUGIN_DIR.'includes/voices_shortcode_assistence.php';
