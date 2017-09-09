@@ -27,7 +27,7 @@
 <caption>Listado de Pagos Realizados</caption>
 <thead>
 <tr>
-<th align="right" style="vertical-align: middle;border-right:1px solid #b9c9fe;border-left:1px solid #b9c9fe;">RUT</th><th align="right" style="vertical-align: middle;border-right:1px solid #b9c9fe;border-left:1px solid #b9c9fe;">NOMBRE</th><th align="right" style="vertical-align: middle;border-right:1px solid #b9c9fe;border-left:1px solid #b9c9fe;">CUERDA</th><th align="right" style="vertical-align: middle;border-right:1px solid #b9c9fe;border-left:1px solid #b9c9fe;">FECHA DE PAGO</th><th align="center" style="vertical-align: middle;border-right:1px solid #b9c9fe;border-left:1px solid #b9c9fe;">TIPO DE PAGO</th><th align="center" style="vertical-align: middle;border-right:1px solid #b9c9fe;border-left:1px solid #b9c9fe;">MONTO</th></tr>
+<th align="right" style="vertical-align: middle;border-right:1px solid #b9c9fe;border-left:1px solid #b9c9fe;">NOMBRE</th><th align="right" style="vertical-align: middle;border-right:1px solid #b9c9fe;border-left:1px solid #b9c9fe;">FECHA DE PAGO</th><th align="center" style="vertical-align: middle;border-right:1px solid #b9c9fe;border-left:1px solid #b9c9fe;">TIPO DE PAGO</th><th align="center" style="vertical-align: middle;border-right:1px solid #b9c9fe;border-left:1px solid #b9c9fe;">MONTO</th></tr>
 </thead>
 <tbody id="load_data">
 </tbody>
@@ -36,14 +36,16 @@
 	jQuery(document).ready(function(){
 
 		jQuery("#voa_payment_filtrar").click(function(){
-			var url = "http://localhost/wordpress/wp-admin/admin-ajax.php";
+			var url = "<?php print admin_url('admin-ajax.php'); ?>";
 
 			var data = {
-				action : 'voa_filter_payment'
+				action : 'voa_filter_payment',
+				'date_from': jQuery("#voa_date_from").val(),
+				'date_to': jQuery("#voa_date_to").val()
 			}
 
 			jQuery.post(url,data,function(response){
-				alert(response);
+				jQuery("#load_data").html(response);
 			});
 		});
 
