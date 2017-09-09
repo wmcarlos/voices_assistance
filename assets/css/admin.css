@@ -16,3 +16,22 @@
 	color: black;
 }
 
+
+/*Estilos css para la tabla en el front end*/
+table#table-filter-assistance {
+	border:0.5px solid ;
+	border-collapse:collapse;
+	font-size:12px;
+}
+table#table-filter-assistance td , table#table-filter-assistance th {
+	border:0.5px solid #404040;
+	padding:10px;
+}
+
+table#table-filter-assistance tr:nth-child(2n) {
+    background:#EBFCFD;
+}
+
+ table#table-filter-assistance tr th{
+	background:#1ACAD3;
+}

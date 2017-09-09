@@ -1,4 +1,9 @@
+<?php 
+    $nonce = wp_create_nonce('voa_assistance_ajax');
 	
+?>	
+
+
 	<!--FECHA -->
 <table width="50%" align="center"> 
 	<tr>
@@ -25,25 +30,59 @@
 	</tr>
 </table>
 
+<div id="voa_ajax_message"></div>
+<div id="div-filter-tab">
+<table id="table-filter-assistance">
+		<h4>Registro de Asistencia de 35 Coristas</h4>
+			<tr>
+				<th>RUT</th>
+				<th>NOMBRE</th>
+				<th>CUERDA</th>
+				<th>ASISTE</th>
+				<th>JUSTIFICA</th>
+			</tr>
+			<tbody>
+				<tr>
+					<td>17188576-0</td>
+					<td>Acosta Aguirre Andrea Eugenia</td>
+					<td>Soprano</td>
+					<td>
+					
+					<select name="" id="">
+						<option value="Si">Si</option>
+						<option value="No">No</option>
+					</select>				
+					
+					</td>
+					
+					<td>
+					<input type="checkbox" name="" id=""></input>
+					</td>
+				</tr>
+			</tbody>		
+		</table>
+</div>
+<script type="text/javascript">
+  	var ajaxurl = "<?php echo admin_url('admin-ajax.php'); ?>";
 
-<table width="100%" cellspacing="1" cellpadding="1"  id="voa_table_assistence">
-<caption>Registro de Asistencia de 35 Coristas</caption>
-<thead>
-<tr>
-<th align="right" style="vertical-align: middle;border-right:1px solid #b9c9fe;border-left:1px solid #b9c9fe;">RUT</th><th align="right" style="vertical-align: middle;border-right:1px solid #b9c9fe;border-left:1px solid #b9c9fe;">NOMBRE</th><th align="right" style="vertical-align: middle;border-right:1px solid #b9c9fe;border-left:1px solid #b9c9fe;">CUERDA</th><th align="right" style="vertical-align: middle;border-right:1px solid #b9c9fe;border-left:1px solid #b9c9fe;">ASISTE</th><th align="center" style="vertical-align: middle;border-right:1px solid #b9c9fe;border-left:1px solid #b9c9fe;">JUSTIFICA</th></tr>
-</thead>
-<tbody>
-<tr>
-	<input type="hidden" name="voa_ids[]" value="<?php echo $key->data->ID; ?>">
-	<td align="center" width="10%">17188576-0</td>
-	<td align="left" width="30%">Nombre</td>
-	<td align="center" width="5%">Soprano</td>
-	<td width="5%">
-		SI
-	</td>
-	<td width="5%" align="right" style="vertical-align: middle;border-right:1px solid #b9c9fe;border-left:1px solid #b9c9fe;">
-		SI	
-	</td>
-</tr>
-</tbody>
-</table>
+  	jQuery(document).ready(function($){
+		jQuery("#voa_assistence_filtrar").click(function(){
+	              var date = $("#voa_date_assistance").val();
+	              var event = $("#voa_event_type").val();
+
+	              var data = {
+	                'action': 'voa_assistance_ajax',
+	                _ajax_nonce : "<?php echo $nonce; ?>",
+	                'voa_date_assistance':$("#voa_date_assistance").val(),
+	                'voa_event_type':$("#voa_event_type").val()
+	             };	             
+	             $("#voa_ajax_message").val('Cargando Asisentes....').fadeIn(500);
+	          		jQuery.post(ajaxurl, data, function(response) {
+	           			$("#div-filter-tab").html(response);
+	           			console.log(response);
+	          	 	});
+
+	        });
+	});
+
+</script>
