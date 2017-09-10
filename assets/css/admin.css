@@ -5,7 +5,9 @@
 	padding: 10px;
 }
 #voa_table_assistence  thead tr th{
-	background-color: #C3D9FF;
+	background:#D13530;
+	color:white !important;
+	border:1px solid #B22E29 !important;
 }
 #voa_table_assistence  tbody tr:nth-child(2n){
 	background-color: #FFF8DC;
@@ -19,7 +21,7 @@
 
 /*Estilos css para la tabla en el front end*/
 table#table-filter-assistance {
-	border:0.5px solid ;
+	border:0.5px solid 404040 !important;
 	border-collapse:collapse;
 	font-size:12px;
 }
@@ -29,9 +31,11 @@ table#table-filter-assistance td , table#table-filter-assistance th {
 }
 
 table#table-filter-assistance tr:nth-child(2n) {
-    background:#EBFCFD;
+    background:#F8DBD9;
 }
 
  table#table-filter-assistance tr th{
-	background:#1ACAD3;
+	background:#D13530;
+	color:white !important;
+	border:1px solid #B22E29 !important;
 }

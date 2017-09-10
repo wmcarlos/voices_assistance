@@ -68,6 +68,8 @@ function voa_mtbx_assistencex_callback($post){
 	$voa_event_date = date_i18n('d-m-Y', strtotime($voa_event_date[0]));
 	$voa_event_type = get_post_meta($post->ID,'voa_event_type_assistance');
 
+	//print_r($voa_meta);
+
 ?>
 
 <!--FECHA -->
@@ -95,7 +97,6 @@ function voa_mtbx_assistencex_callback($post){
 
 
 <table width="100%" cellspacing="1" cellpadding="1"  id="voa_table_assistence">
-<caption>Registro de Asistencia de 35 Coristas</caption>
 <thead>
 <tr>
 <th align="right" style="vertical-align: middle;border-right:1px solid #b9c9fe;border-left:1px solid #b9c9fe;">RUT</th><th align="right" style="vertical-align: middle;border-right:1px solid #b9c9fe;border-left:1px solid #b9c9fe;">NOMBRE</th><th align="right" style="vertical-align: middle;border-right:1px solid #b9c9fe;border-left:1px solid #b9c9fe;">CUERDA</th><th align="right" style="vertical-align: middle;border-right:1px solid #b9c9fe;border-left:1px solid #b9c9fe;">ASISTE</th><th align="center" style="vertical-align: middle;border-right:1px solid #b9c9fe;border-left:1px solid #b9c9fe;">JUSTIFICA</th></tr>
@@ -119,11 +120,14 @@ foreach ($voa_users as $key) {
 	</select>
 	</td>
 	<td width="5%" align="right" style="vertical-align: middle;border-right:1px solid #b9c9fe;border-left:1px solid #b9c9fe;">
-		<?php foreach($voa_meta[0]['justify'] as $key_justify){
+		<?php
+		if(count($voa_meta[0]['justify']) > 0 ){
+		 foreach($voa_meta[0]['justify'] as $key_justify){
 			if($key_justify==$key->data->ID){
 		?>
 		<input type="checkbox" checked="checked" id="justify"  name="justify[]" value="<?php echo $key->data->ID;  ?>"  id="justify[]" style="margin:0px">
 		<?php $cont_data = 1; }}
+		}
 			if($cont_data==0){
 		?>
 		<input type="checkbox"  id="justify"  name="justify[]" value="<?php echo $key->data->ID;  ?>"  id="justify[]" style="margin:0px">

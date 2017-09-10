@@ -30,43 +30,18 @@
 	</tr>
 </table>
 
-<div id="voa_ajax_message"></div>
+<div id="voa_ajax_message" style="font-size:25px; font-weight:bold; padding:5px; background-color:#ccc; display:none;"></div>
+<br>
 <div id="div-filter-tab">
 <table id="table-filter-assistance">
-		<h4>Registro de Asistencia de 35 Coristas</h4>
-			<tr>
-				<th>RUT</th>
-				<th>NOMBRE</th>
-				<th>CUERDA</th>
-				<th>ASISTE</th>
-				<th>JUSTIFICA</th>
-			</tr>
-			<tbody>
-				<tr>
-					<td>17188576-0</td>
-					<td>Acosta Aguirre Andrea Eugenia</td>
-					<td>Soprano</td>
-					<td>
-					
-					<select name="" id="">
-						<option value="Si">Si</option>
-						<option value="No">No</option>
-					</select>				
-					
-					</td>
-					
-					<td>
-					<input type="checkbox" name="" id=""></input>
-					</td>
-				</tr>
-			</tbody>		
-		</table>
 </div>
 <script type="text/javascript">
   	var ajaxurl = "<?php echo admin_url('admin-ajax.php'); ?>";
 
   	jQuery(document).ready(function($){
 		jQuery("#voa_assistence_filtrar").click(function(){
+			$("#div-filter-tab").html("");
+				$("#voa_ajax_message").text("Cargando Asistencia....").show(100);
 	              var date = $("#voa_date_assistance").val();
 	              var event = $("#voa_event_type").val();
 
@@ -79,6 +54,7 @@
 	             $("#voa_ajax_message").val('Cargando Asisentes....').fadeIn(500);
 	          		jQuery.post(ajaxurl, data, function(response) {
 	           			$("#div-filter-tab").html(response);
+	           			$("#voa_ajax_message").delay(1000).hide(100);
 	           			console.log(response);
 	          	 	});
 
