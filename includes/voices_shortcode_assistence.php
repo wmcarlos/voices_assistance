@@ -49,7 +49,7 @@
 <?php 
 $i=0;
 foreach ($voa_users as $key) { 
-	if($key->roles[0]=='subscriber'){	
+	if($key->roles[0]=='subscriber'  || $key->roles[0]=='usuario'){	
 		$cont_data = 0;
 ?>
 <tr>
@@ -97,6 +97,9 @@ foreach ($voa_users as $key) {
 	
 	add_shortcode("voa_assistence","voa_assistence_short_fn");
 	function voa_assistence_short_fn(){
-		include_once("templates/voices_template_shortcode_assistance.php");
+		ob_start();
+			include_once("templates/voices_template_shortcode_assistance.php");
+	    return ob_get_clean();
+
 	}
 

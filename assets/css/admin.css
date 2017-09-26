@@ -39,3 +39,26 @@ table#table-filter-assistance tr:nth-child(2n) {
 	color:white !important;
 	border:1px solid #B22E29 !important;
 }
+
+
+h2.entry-title{
+	padding: 10px;
+	background-color: #D13530;
+	color:white;
+	margin-bottom: 15px;
+	border:1px solid #B22E29;
+}
+article.event_user_assist{
+	background-color: #F7E6E6;
+	margin: 0px !important;
+	border:1px solid #D2C4C4;
+	
+}
+article.event_user_assist h3{
+	margin-top: 15px;
+	text-indent: 10px;
+}
+span.article_event_date{
+	color: #696262;
+	margin-left: 10px;
+}

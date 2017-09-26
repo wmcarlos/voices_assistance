@@ -70,6 +70,7 @@ function voa_mtbx_assistencex_callback($post){
 
 	//print_r($voa_meta);
 
+
 ?>
 
 <!--FECHA -->
@@ -105,7 +106,10 @@ function voa_mtbx_assistencex_callback($post){
 <?php 
 $i=0;
 foreach ($voa_users as $key) { 
-	if($key->roles[0]=='subscriber'){	
+	//print_r($voa_users);
+	//echo 'haha '.$key['wpcf-rut-usuario'];
+	//echo '<hr>'
+	if($key->roles[0]=='subscriber' || $key->roles[0]=='usuario'){	
 		$cont_data = 0;
 ?>
 <tr>
