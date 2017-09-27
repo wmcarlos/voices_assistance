@@ -68,7 +68,6 @@ foreach ($voa_users as $key) {
 	 	}else{
 	 		echo 'NO';
 	 	}
-
 	 ?>
 	</td>
 	<td width="5%" align="right" style="vertical-align: middle;border-right:1px solid #b9c9fe;border-left:1px solid #b9c9fe;">

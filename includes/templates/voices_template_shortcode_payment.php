@@ -2,6 +2,9 @@
 	<!--FECHA -->
 <table width="50%" align="center"> 
 	<tr>
+		<td colspan="3" align="center"><b>Todos los Dias Marcados con <i style="color:green">Verde</i> Tiene Pagos Realizados!!!</b></td>
+	</tr>
+	<tr>
 		<td>
 			<p>
 				<span>Fecha Desde:</span>
@@ -33,6 +36,24 @@
 </tbody>
 </table>
 <script type="text/javascript">
+	<?php
+		$args = [
+					'post_type' => 'voa_cpt_payment',
+					'orderby' => 'asc'
+				];
+
+				$loop = new WP_Query($args);
+				$strdate = "";
+				while($loop->have_posts()){
+					$loop->the_post();
+
+					$data = get_post_meta(get_the_id(),'voa_payment');
+					$arrd = $data[0];
+					$strdate.="'".$data[0]['date_payment']."',";
+					
+				}
+	?>
+
 	jQuery(document).ready(function(){
 
 		jQuery("#voa_payment_filtrar").click(function(){
@@ -49,5 +70,49 @@
 			});
 		});
 
+		//For Payment
+	     jQuery("#voa_date_from").datepicker({
+	        dateFormat: 'dd-mm-yy',
+	        changeMonth : true,
+	        changeYear : true,
+	        beforeShowDay : function(date){
+
+	        	var pdate = new Array(<?php print $strdate; ?>);
+
+				var d = ("0" + date.getDate()).slice(-2)+"-"+("0" + (date.getMonth()+1)).slice(-2)+"-"+date.getFullYear();
+
+				for(i = 0; i < pdate.length; i++){
+					//console.log(pdate[i]+"="+d);
+					if(pdate[i] == d){
+						console.log(pdate[i]+" == "+d);
+						return [true,"Highlighted","Existen Pagos Registrados!!"];
+					}
+				}
+				return [true,""];
+	        }
+
+	     });
+
+	     jQuery("#voa_date_to").datepicker({
+	        dateFormat: 'dd-mm-yy',
+	        changeMonth : true,
+	        changeYear : true,
+	        beforeShowDay : function(date){
+
+	        	var pdate = new Array(<?php print $strdate; ?>);
+
+				var d = ("0" + date.getDate()).slice(-2)+"-"+("0" + (date.getMonth()+1)).slice(-2)+"-"+date.getFullYear();
+
+				for(i = 0; i < pdate.length; i++){
+					//console.log(pdate[i]);
+					if(pdate[i] == d){
+						console.log(pdate[i]+" == "+d);
+						return [true,"Highlighted","Existen Pagos Registrados!!"];
+					}
+				}
+				return [true,""];
+	        }
+	     });  
+	     //End Payment
 	});
 </script>

@@ -62,3 +62,7 @@ span.article_event_date{
 	color: #696262;
 	margin-left: 10px;
 }
+
+td.Highlighted {
+	background: green;
+}

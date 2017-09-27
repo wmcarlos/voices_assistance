@@ -24,6 +24,7 @@ if ( !defined('ABSPATH') ) {
  */
 
 add_action( 'admin_enqueue_scripts', 'voice_assistances_admin_scripts', 100 );
+
 function voice_assistances_admin_scripts($hooks) {
           //styles
     global $post_type;
