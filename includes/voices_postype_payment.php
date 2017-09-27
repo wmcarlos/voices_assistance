@@ -111,7 +111,7 @@ function voa_mtbx_paymentx_callback($post){
 		var availableTags = [
 			<?php 
 				foreach ($voa_users as $key) { 
-					if($key->roles[0]=='subscriber'){	
+					if($key->roles[0]=='subscriber' || $key->roles[0]=='usuario'){	
 						$ctem++;
 					}
 				}
@@ -119,7 +119,7 @@ function voa_mtbx_paymentx_callback($post){
 				$count = 0;
 
 				foreach ($voa_users as $key) { 
-					if($key->roles[0]=='subscriber'){	
+					if($key->roles[0]=='subscriber' || $key->roles[0]=='usuario'){	
 						$count++;
 						if($count < $ctem){
 							print "'".$key->data->display_name."',";

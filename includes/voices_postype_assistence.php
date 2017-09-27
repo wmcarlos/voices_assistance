@@ -111,12 +111,14 @@ foreach ($voa_users as $key) {
 	//echo '<hr>'
 	if($key->roles[0]=='subscriber' || $key->roles[0]=='usuario'){	
 		$cont_data = 0;
+		$rut = get_user_meta($key->data->ID,'wpcf-rut-usuario',true);
+		$cuerda = get_user_meta($key->data->ID,'wpcf-cuerda-usuario',true);
 ?>
 <tr>
 	<input type="hidden" name="voa_ids[]" value="<?php echo $key->data->ID; ?>">
-	<td align="center" width="10%">17188576-0</td>
+	<td align="center" width="10%"><?php print $rut; ?></td>
 	<td align="left" width="30%"><?php echo $key->data->display_name; ?></td>
-	<td align="center" width="5%">Soprano</td>
+	<td align="center" width="5%"><?php print $cuerda; ?></td>
 	<td width="5%">
 	<select id="assist" name="assist[]">
 		<option <?php selected($voa_meta[0]['assist'][$i],'S'); ?> value="S">Si</option>
