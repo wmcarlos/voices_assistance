@@ -19,12 +19,12 @@ if(is_user_logged_in()){
 				if(get_current_user_id()==$key){
 					if($data[0]['assist'][$post_count]=='N'){	
 						$assist.='<article class="event_user_assist">
-						<h3>'.get_the_title().' <span style="float:right; padding-right:15px;">Asistente</span></h3>
+						<h3>'.get_the_title().' <span class="assist_event" assist="yes" style="float:right; padding-right:15px;">Asistente</span></h3>
 						<span class="article_event_date">'.$date_event.'</span>
 						</article>';
 					}else{
 						$assist.='<article class="event_user_assist">
-						<h3>'.get_the_title().'<span style="float:right; padding-right:15px;">No Asistente</span></h3>
+						<h3>'.get_the_title().'<span class="assist_event" assist="no" style="float:right; padding-right:15px;">No Asistente</span></h3>
 						<span class="article_event_date">'.$date_event.'</span>
 						</article>';
 					}
@@ -52,6 +52,12 @@ endwhile;
 			<b>Hasta:</b>
 			<br>
 			<input value="" placeholder="DD/MM/YY" type="text" id="voa_date_h">
+		</td>
+
+		<td>
+			<b>A/N-A</b>
+			<br>
+			<center><input style="width:30px; height:30px;" type="checkbox" id="voa_assist_notassist_check"></center>
 		</td>	
 	</tr>
 </table>
