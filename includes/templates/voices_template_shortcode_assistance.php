@@ -7,6 +7,9 @@
 	<!--FECHA -->
 <table width="50%" align="center"> 
 	<tr>
+		<td colspan="3" align="center"><b>Todos los Dias Marcados con <i style="color:green">Verde</i> Tiene Pagos Realizados!!!</b></td>
+	</tr>
+	<tr>
 		<td>
 			<p>
 				<span>Fecha:</span>
@@ -34,6 +37,7 @@
 <br>
 <div id="div-filter-tab">
 <table id="table-filter-assistance">
+</table>
 </div>
 <script type="text/javascript">
   	var ajaxurl = "<?php echo admin_url('admin-ajax.php'); ?>";
@@ -76,7 +80,7 @@
 				}
 				return [true,""];
 	        }
-	        
+
 	     });
 
 
