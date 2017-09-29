@@ -37,8 +37,51 @@
 </div>
 <script type="text/javascript">
   	var ajaxurl = "<?php echo admin_url('admin-ajax.php'); ?>";
+  	<?php
+		$args = [
+					'post_type' => 'voa_cpt_assistence',
+					'orderby' => 'asc'
+				];
+
+				$loop = new WP_Query($args);
+				$strdate = "";
+				while($loop->have_posts()){
+					$loop->the_post();
+
+					$data = get_post_meta(get_the_id(),'voa_event_date_assistance');
+					$arrd = $data[0];
+					$strdate.="'".$data[0]."',";
+					
+		}
+	?>
 
   	jQuery(document).ready(function($){
+  		//datepiker
+  		 $("#voa_date_assistance").datepicker({
+	        dateFormat: 'dd-mm-yy',
+	        changeMonth : true,
+	        changeYear : true,
+	        beforeShowDay : function(date){
+
+	        	var pdate = new Array(<?php print $strdate; ?>);
+
+				var d = ("0" + date.getDate()).slice(-2)+"-"+("0" + (date.getMonth()+1)).slice(-2)+"-"+date.getFullYear();
+
+				for(i = 0; i < pdate.length; i++){
+					//console.log(pdate[i]+"="+d);
+					if(pdate[i] == d){
+						console.log(pdate[i]+" == "+d);
+						return [true,"Highlighted","Existen Pagos Registrados!!"];
+					}
+				}
+				return [true,""];
+	        }
+	        
+	     });
+
+
+
+  		//filtros
 		jQuery("#voa_assistence_filtrar").click(function(){
 			$("#div-filter-tab").html("");
 				$("#voa_ajax_message").text("Cargando Asistencia....").show(100);
