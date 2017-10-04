@@ -2,7 +2,9 @@
 	
 	add_shortcode("voa_payment","voa_payment_short_fn");
 	function voa_payment_short_fn(){
-		include_once("templates/voices_template_shortcode_payment.php");
+		ob_start();
+			include_once("templates/voices_template_shortcode_payment.php");
+	    return ob_get_clean();
 	}
 	add_action("wp_ajax_voa_filter_payment","voa_filter_payment_callback");
 
