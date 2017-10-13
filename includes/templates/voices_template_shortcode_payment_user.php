@@ -1,7 +1,6 @@
 <?php if(is_user_logged_in()){
 $user = wp_get_current_user();
 ?>
-<h1><?php print $user->display_name; ?></h1>
 <!--FECHA -->
 <table width="50%" align="center"> 
 	<tr>
