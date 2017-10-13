@@ -53,7 +53,7 @@ $user = wp_get_current_user();
 					$data = get_post_meta(get_the_id(),'voa_payment');
 					$arrd = $data[0];
 					$corist = $arrd['corist'];
-					if($user->display_name = $corist){
+					if($user->display_name == $corist){
 						$strdate.="'".$data[0]['date_payment']."',";
 					}
 					

@@ -33,7 +33,7 @@
 			$payment_type = $arrd['payment_type'];
 			$price = $arrd['count'];
 
-			if( ($date_payment >= $date_from && $date_payment <= $date_to) and $user->display_name = $corist){
+			if( ($date_payment >= $date_from && $date_payment <= $date_to) and $user->display_name == $corist){
 				$cad.="<tr>";
 					$cad.="<td>".$corist."</td>";
 					$cad.="<td>".$arrd['date_payment']."</td>";
