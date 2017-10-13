@@ -1,15 +1,62 @@
 <?php
 
 	
+	
+	//primeramente nos traeremos todas las asistencias en fecha
+	add_action("wp_ajax_voa_all_date_assistance","voa_all_date_assistance_callback");
+	add_action("wp_ajax_nopriv_voa_all_date_assistance","voa_all_date_assistance_callback");
+	function voa_all_date_assistance_callback(){
+		$dateto = date_i18n('d-m-Y', strtotime(sanitize_text_field($_REQUEST['voa_date_assistance'])));	
+		$dateuntil = date_i18n('d-m-Y', strtotime(sanitize_text_field($_REQUEST['voa_date_until_assistance'])));	
+		$args = [
+					'post_type' => 'voa_cpt_assistence',
+					'orderby' => 'asc'
+				];
+
+				$loop = new WP_Query($args);
+				$strdate = "";
+				echo '<h2>Listado de Eventos</h2>';
+				echo '<table id="table-filter-assistance">
+					<tr>
+						<th>Nombre</th>
+						<th>Fecha</th>
+						<th>Tipo de Evento</th>
+						<th>--</th>
+					<tr>
+				';
+				while($loop->have_posts()){
+					$loop->the_post();
+					//obtene mos el formato de fecha y lo comparamos
+					$data = get_post_meta(get_the_id(),'voa_event_date_assistance');
+					$voa_event_type = get_post_meta(get_the_id(),'voa_event_type_assistance');
+		 			$voa_date =  date_i18n('d-m-Y', strtotime($data[0]));	
+					if($voa_date>=$dateto && $voa_date<=$dateuntil){
+						echo '<tr>';
+						echo "<td>".get_the_title()."</td>";
+						echo "<td>".$voa_date."</td>";
+						echo "<td>".$voa_event_type[0]."</td>";
+						echo "<td><input type='button' class='voa_buscar_ajax' value='Buscar' idevent='".get_the_ID()."'></td>";
+						echo '</tr>';
+						
+					}//cierre del if
+				}//cierre del while
+				echo '</table>';
+		wp_die();
+	}
+	//CLOSED
+
+
 	add_action('wp_ajax_voa_assistance_ajax','voa_assistance_ajax_callback');
 	add_action("wp_ajax_nopriv_voa_assistance_ajax","voa_assistance_ajax_callback");
-
-	function voa_checked_assistence_ajax($pid){
+	function voa_checked_assistence_ajax($pid)
+	{
 		$voa_meta = get_post_meta($pid,'voa_assistence');
 		return $voa_meta;
 	}
-	function voa_assistance_ajax_callback(){
+	function voa_assistance_ajax_callback()
+	{
 		check_ajax_referer("voa_assistance_ajax");
+		$idevent = sanitize_text_field($_REQUEST['idevent']);
 		$cont_coristas = 0;
 		$args = array(
 		    'post_type' => 'voa_cpt_assistence',
@@ -23,7 +70,7 @@
 		 	$voa_date_assistance = get_post_meta(get_the_id(),'voa_event_date_assistance');
 		 	$voa_event_type = get_post_meta(get_the_id(),'voa_event_type_assistance');
 		 	$voa_date =  date_i18n('d-m-Y', strtotime($voa_date_assistance[0]));
-		 	if($date_temp==$voa_date && $temp_event_type == $voa_event_type[0]){
+		 	if($idevent == get_the_ID()){
 		 		$voa_title_assistance = get_the_title();
 		 		$voa_users = get_users();
 				$voa_meta = voa_checked_assistence_ajax(get_the_id());	
