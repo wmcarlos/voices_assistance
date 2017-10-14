@@ -2,15 +2,14 @@
 
 if(is_user_logged_in()){
 		$post_count = 0;
-		$asisst = '';
 		$not_assist = '';
 		$args = array(
 		    'post_type' => 'voa_cpt_assistence',
 		    'orderby'   => 'voa_event_date_assistance',
-       		'order' => 'ASC'
+       		'order' => 'DESC'
 		 );
 		$the_query = new WP_Query( $args );
-
+		$assist = '';
 		while ( $the_query->have_posts() ) : $the_query->the_post();
 			$data = get_post_meta(get_the_id(),'voa_assistence');
 			$date_event = get_post_meta(get_the_id(),'voa_event_date_assistance');

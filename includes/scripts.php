@@ -37,7 +37,7 @@ function voice_assistances_admin_scripts($hooks) {
         //JQUERY UI
         wp_enqueue_script( 'jquery-ui-datepicker' ,array( 'jquery' ));
         // You need styling for the datepicker. For simplicity I've linked to Google's hosted jQuery UI CSS.
-        wp_register_style( 'jquery-ui', 'http://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css' );
+        wp_register_style( 'jquery-ui', '//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css' );
         wp_enqueue_style( 'jquery-ui' ); 
 
     } 
@@ -52,7 +52,7 @@ function voice_assistances_admin_scripts($hooks) {
         wp_enqueue_script( 'jquery-ui-datepicker' ,array( 'jquery' ));
         wp_enqueue_script( 'jquery-ui-autocomplete' ,array( 'jquery' ));
         // You need styling for the datepicker. For simplicity I've linked to Google's hosted jQuery UI CSS.
-        wp_register_style( 'jquery-ui', 'http://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css' );
+        wp_register_style( 'jquery-ui', '//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css' );
         wp_enqueue_style( 'jquery-ui' ); 
 
     }  
@@ -67,6 +67,6 @@ function voice_assistances_front_scripts($hooks) {
         //JQUERY UI
         wp_enqueue_script( 'jquery-ui-datepicker' ,array( 'jquery' ));
         // You need styling for the datepicker. For simplicity I've linked to Google's hosted jQuery UI CSS.
-        wp_register_style( 'jquery-ui', 'http://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css' );
+        wp_register_style( 'jquery-ui', '//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css' );
         wp_enqueue_style( 'jquery-ui' ); 
 }

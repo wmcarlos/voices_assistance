@@ -6,11 +6,11 @@
 	add_action("wp_ajax_voa_all_date_assistance","voa_all_date_assistance_callback");
 	add_action("wp_ajax_nopriv_voa_all_date_assistance","voa_all_date_assistance_callback");
 	function voa_all_date_assistance_callback(){
-		$dateto = date_i18n('d-m-Y', strtotime(sanitize_text_field($_REQUEST['voa_date_assistance'])));	
-		$dateuntil = date_i18n('d-m-Y', strtotime(sanitize_text_field($_REQUEST['voa_date_until_assistance'])));	
+		$dateto = strtotime($_REQUEST['voa_date_assistance']);	
+		$dateuntil = strtotime($_REQUEST['voa_date_until_assistance']);	
 		$args = [
 					'post_type' => 'voa_cpt_assistence',
-					'orderby' => 'asc'
+					'orderby' => 'desc'
 				];
 
 				$loop = new WP_Query($args);
@@ -29,11 +29,11 @@
 					//obtene mos el formato de fecha y lo comparamos
 					$data = get_post_meta(get_the_id(),'voa_event_date_assistance');
 					$voa_event_type = get_post_meta(get_the_id(),'voa_event_type_assistance');
-		 			$voa_date =  date_i18n('d-m-Y', strtotime($data[0]));	
+		 			$voa_date =  strtotime($data[0]);
 					if($voa_date>=$dateto && $voa_date<=$dateuntil){
 						echo '<tr>';
 						echo "<td>".get_the_title()."</td>";
-						echo "<td>".$voa_date."</td>";
+						echo "<td>".date('m-d-Y',$voa_date)."</td>";
 						echo "<td>".$voa_event_type[0]."</td>";
 						echo "<td><input type='button' class='voa_buscar_ajax' value='Buscar' idevent='".get_the_ID()."'></td>";
 						echo '</tr>';
